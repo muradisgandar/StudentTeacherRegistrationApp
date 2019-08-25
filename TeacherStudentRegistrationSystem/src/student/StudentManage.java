@@ -311,7 +311,9 @@ public class StudentManage extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         Student s = getByInputs();
-        StudentDatabase.add(s);
+        
+        StudentDatabase obj = new StudentDatabase();
+        obj.add(s);
 
         refresh(null, null, null, null);
 
@@ -325,7 +327,8 @@ public class StudentManage extends javax.swing.JFrame {
         int selectedRowIndex = tblStudents.getSelectedRow();
         Integer id = (Integer) tblStudents.getModel().getValueAt(selectedRowIndex, 0);
 
-        StudentDatabase.update(s, id);
+        StudentDatabase obj = new StudentDatabase();
+        obj.update(s, id);
 
         refresh(null, null, null, null);
     }//GEN-LAST:event_btnEditActionPerformed
@@ -338,7 +341,9 @@ public class StudentManage extends javax.swing.JFrame {
 
             int selectedRowIndex = tblStudents.getSelectedRow();
             Integer id = (Integer) tblStudents.getModel().getValueAt(selectedRowIndex, 0);
-            StudentDatabase.delete(id);
+            
+            StudentDatabase obj = new StudentDatabase();
+            obj.delete(id);
         }
         
 

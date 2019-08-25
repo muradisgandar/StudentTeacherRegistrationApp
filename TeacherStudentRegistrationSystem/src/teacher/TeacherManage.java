@@ -278,7 +278,8 @@ public class TeacherManage extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         Teacher t = getByInputs();
-        TeacherDatabase.add(t);
+        TeacherDatabase obj = new TeacherDatabase();
+        obj.add(t);
 
         refresh(null, null, null);
     }//GEN-LAST:event_btnAddActionPerformed
@@ -289,7 +290,8 @@ public class TeacherManage extends javax.swing.JFrame {
         int selectedRowIndex = tblTeacher.getSelectedRow();
         Integer id = (Integer) tblTeacher.getModel().getValueAt(selectedRowIndex, 0);
 
-        TeacherDatabase.update(t, id);
+        TeacherDatabase obj = new TeacherDatabase();
+        obj.update(t, id);
 
         refresh(null, null, null);
 
@@ -303,7 +305,9 @@ public class TeacherManage extends javax.swing.JFrame {
 
             int selectedRowIndex = tblTeacher.getSelectedRow();
             Integer id = (Integer) tblTeacher.getModel().getValueAt(selectedRowIndex, 0);
-            TeacherDatabase.delete(id);
+            
+            TeacherDatabase obj = new TeacherDatabase();
+            obj.delete(id);
         }
         refresh(null, null, null);
 

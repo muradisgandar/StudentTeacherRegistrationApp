@@ -11,22 +11,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
+import abstractdb.AbstractDatabase;
 /**
  *
  * @author murad_isgandar
  */
-public class StudentDatabase {
-    public static Connection connect() throws Exception{
-        
-        Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/studentteacherregister?useUnicode=true&characterEncoding=utf-8";
-        String username = "root";
-        String password = "root12345";
-        Connection connection = DriverManager.getConnection(url, username, password);
-        return connection;
-        
-    }
+public class StudentDatabase extends AbstractDatabase<Student> {
+    
+    
     
     public static List<Student> getAllStudents(){
         List<Student> list = new ArrayList<>();
@@ -90,7 +82,8 @@ public class StudentDatabase {
         
     }
     
-    public static boolean add(Student t){
+    @Override
+    public  boolean add(Student t){
         try(Connection conn = connect()) {
             PreparedStatement prpm = conn.prepareStatement("insert student(name,surname,age) values(?,?,?)");
             prpm.setString(1,t.getName());
@@ -109,7 +102,8 @@ public class StudentDatabase {
         
     }
     
-    public static boolean update(Student t,Integer id){
+    @Override
+    public  boolean update(Student t,Integer id){
         try(Connection conn = connect()) {
            PreparedStatement prpm = conn.prepareStatement("update student set name=?,surname=?,age=? where id=?");
             prpm.setString(1,t.getName());
@@ -127,7 +121,8 @@ public class StudentDatabase {
         
     }
     
-     public static boolean delete(Integer id){
+    @Override
+     public boolean delete(Integer id){
         try(Connection conn = connect()) {
            PreparedStatement prpm = conn.prepareStatement("delete from student where id=?");
             prpm.setInt(1,id);
