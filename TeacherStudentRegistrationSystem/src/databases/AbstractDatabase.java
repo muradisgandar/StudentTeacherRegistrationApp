@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package abstractdb;
+package databases;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,7 +26,7 @@ public abstract class AbstractDatabase<T> {
     }
     
     public abstract boolean add(T obj);
-    public abstract boolean update(T obj,Integer id);
+    public abstract boolean update(T obj);
     public abstract boolean delete(Integer id);
     
     

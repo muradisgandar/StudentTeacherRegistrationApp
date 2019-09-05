@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package teacher;
+package databases;
 
+import beans.Teacher;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import student.Student;
-import abstractdb.AbstractDatabase;
+import beans.Student;
 /**
  *
  * @author murad_isgandar
@@ -88,13 +88,35 @@ public class TeacherDatabase extends AbstractDatabase<Teacher> {
     }
 
     @Override
-    public  boolean update(Teacher t, Integer id) {
+    public  boolean update(Teacher t) {
         try (Connection conn = connect()) {
-            PreparedStatement prpm = conn.prepareStatement("update teacher set name=?,surname=?,age=? where id=?");
-            prpm.setString(1, t.getName());
-            prpm.setString(2, t.getSurname());
-            prpm.setInt(3, t.getAge());
-            prpm.setInt(4, id);
+            StringBuilder queryStr = new StringBuilder("update teacher set name=name");
+
+            if (t.getName() != null && !t.getName().isEmpty()) {
+                queryStr.append(", name=?");
+            }
+            if (t.getSurname() != null && !t.getSurname().isEmpty()) {
+                queryStr.append(", surname=?");
+            }
+            if (t.getAge() != null) {
+                queryStr.append(", age=?");
+            }
+
+            queryStr.append(" where id=?");
+
+            PreparedStatement prpm = conn.prepareStatement(queryStr.toString());
+            int i = 0;
+            if (t.getName() != null && !t.getName().isEmpty()) {
+                prpm.setString(++i, t.getName());
+            }
+            if (t.getSurname() != null && !t.getSurname().isEmpty()) {
+                prpm.setString(++i, t.getSurname());
+            }
+            if (t.getAge() != null) {
+                prpm.setInt(++i,t.getAge());
+            }
+
+            prpm.setInt(++i, t.getId());
 
             prpm.execute();
         } catch (Exception e) {

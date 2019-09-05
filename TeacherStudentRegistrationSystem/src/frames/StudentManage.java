@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package student;
+package frames;
 
+import databases.StudentDatabase;
+import beans.Student;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import login.*;
 
 /**
  *
@@ -58,7 +59,9 @@ public class StudentManage extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(780, 540));
+        setMaximumSize(new java.awt.Dimension(650, 650));
+        setMinimumSize(new java.awt.Dimension(600, 600));
+        setResizable(false);
 
         jLabel1.setText("    Name");
 
@@ -278,8 +281,15 @@ public class StudentManage extends javax.swing.JFrame {
             dataArr[i] = Arrays.asList(s.getId(), s.getName(), s.getSurname(), s.getAge(), s.getTeacher_id()).toArray();
         }
 
-        tblStudents.setModel(new DefaultTableModel(dataArr, columnArr));
+        tblStudents.setModel(new DefaultTableModel(dataArr, columnArr){
+        
+            @Override
+            public boolean isCellEditable(int row,int column){
+                return false;
+            }
 
+    
+    });
     }
 
     public Student getByInputs() {
@@ -327,8 +337,9 @@ public class StudentManage extends javax.swing.JFrame {
         int selectedRowIndex = tblStudents.getSelectedRow();
         Integer id = (Integer) tblStudents.getModel().getValueAt(selectedRowIndex, 0);
 
+        s.setId(id);
         StudentDatabase obj = new StudentDatabase();
-        obj.update(s, id);
+        obj.update(s);
 
         refresh(null, null, null, null);
     }//GEN-LAST:event_btnEditActionPerformed

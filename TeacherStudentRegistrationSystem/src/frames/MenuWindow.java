@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package login;
+package frames;
 
-import student.StudentManage;
-import teacher.TeacherManage;
+import frames.LoginWindow;
 
 /**
  *

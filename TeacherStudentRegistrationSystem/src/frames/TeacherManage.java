@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package teacher;
+package frames;
 
+import databases.TeacherDatabase;
+import beans.Teacher;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import login.MenuWindow;
-import student.Student;
-import login.LoginWindow;
+import beans.Student;
 
 /**
  *
@@ -57,6 +57,7 @@ public class TeacherManage extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("    Name");
 
@@ -271,7 +272,15 @@ public class TeacherManage extends javax.swing.JFrame {
 
         }
 
-        tblTeacher.setModel(new DefaultTableModel(dataArr, columnArr));
+        tblTeacher.setModel(new DefaultTableModel(dataArr, columnArr){
+        
+            @Override
+            public boolean isCellEditable(int row,int column){
+                return false;
+            }
+
+    
+    });
 
     }
 
@@ -290,8 +299,9 @@ public class TeacherManage extends javax.swing.JFrame {
         int selectedRowIndex = tblTeacher.getSelectedRow();
         Integer id = (Integer) tblTeacher.getModel().getValueAt(selectedRowIndex, 0);
 
+        t.setId(id);
         TeacherDatabase obj = new TeacherDatabase();
-        obj.update(t, id);
+        obj.update(t);
 
         refresh(null, null, null);
 
